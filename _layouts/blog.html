@@ -1,0 +1,48 @@
+---
+layout: default
+---
+
+<script type="text/javascript" src="/assets/js/toggle.js"></script>
+<link rel="stylesheet" href="/assets/stylesheets/posts.css">
+
+<div class="home">
+
+  {{ content }}
+
+  {%- if site.posts.size > 0 -%}
+    <h2 class="post-list-heading">{{ page.list_title | default: "文" }}</h2>
+    <br>
+    <p style='display: block; text-align: right'>共收录{{ site.posts | size }}篇文章，按照发表时间由近至远排序。最后更新于 {{ site.time | date: "%Y.%m.%d" }}</p>
+
+    <br>
+    <a id="blog-toggle" href="javascript:toggleclass('blog-tag')">切换标签</a>
+    <br>
+    <br>
+    <ul class="post-list">
+      {%- for post in site.posts -%}
+      <li>
+        <!--{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <span class="post-meta">{{ post.date | date: date_format }}</span>-->
+        <div class="blog">
+          <pre class="blog-tag">{{ post.tags[1] }}</pre>
+          <h3 class="blog">
+            <a href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>{%- if post.sensitive -%}<span class="blog-star">&#9824; </span>{%- endif -%}{%- if post.author -%} by {{ post.author }}{%- endif -%}
+          </h3>
+          <!--<p class="blog-tags">
+            {% for tag in post.tags %}
+            {% unless forloop.first %}{{tag}}{% endunless %}
+            {% unless forloop.last %}&nbsp;&nbsp;{% endunless %}
+            {% endfor %}
+          </p>-->
+        </div>
+        {%- if site.show_excerpts -%}
+          {{ post.excerpt }}
+        {%- endif -%}
+      </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+
+</div>

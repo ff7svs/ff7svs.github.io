@@ -1,0 +1,21 @@
+---
+layout: default
+---
+
+<script type="text/javascript" src="/assets/js/toggle.js"></script>
+<link rel="stylesheet" href="/assets/stylesheets/projects.css">
+<article class='post'>
+
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  {%- if site.livere_uid -%}
+    {%- include livere_comment.html -%}
+  {%- endif -%}
+
+</article>

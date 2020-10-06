@@ -1,0 +1,57 @@
+---
+layout: default
+---
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {{ page.date | date: date_format }}
+      </time>
+      {%- if page.author -%}
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author | escape }}</span></span>
+      {%- endif -%}
+    </p>
+    {%- if page.tags -%}
+      <div class="post-tags">
+          {% for tag in page.tags %}
+            <a href="{{site.baseurl}}/tags/#{{tag|slugize}}">{{tag}}</a>
+          {% unless forloop.last %}&nbsp;{% endunless %}
+          {% endfor %}
+      </div>
+    {%- endif -%}
+
+  </header>
+  <script type="text/javascript" src="/assets/js/toggle.js"></script>
+  <link rel="stylesheet" href="/assets/stylesheets/posts.css">
+  <div class="post-content e-content" itemprop="articleBody">
+
+    <div class='content-warning'>
+        {% if page.warning %}
+          <p class="sensitive-warning"> {{ page.warning }}</p>
+          <br><br><br>
+        {% endif %}
+    </div>
+    {% if page.sensitive %}
+      <div class='sensitive-confirmation'>
+        <a href="javascript:toggleblock('sensitive')">This work could have 17 plus content. If you proceed you have agreed that you are willing to see such content.</a>
+        <br><br><br>
+      </div>
+      <div id="sensitive" style="display:none">{{ content }}</div>
+    {% else %}
+      {{ content }}
+    {% endif %}
+
+  </div>
+
+  {%- include likebtn.html -%}
+
+  {%- if site.livere_uid -%}
+    {%- include livere_comment.html -%}
+  {%- endif -%}
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>
